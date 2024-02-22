@@ -321,18 +321,7 @@ if st.sidebar.checkbox('PLOTS'):
     st.pyplot(plt.gcf()) 
 
     st.write("**Given the two previous graphs we can potentially say that the initial assumption is sensible, as the most frequently cells are similar between market segment and distribution channel**")
-"""
-    st.header('Correlation about Dataset') 
-    hb_df.columns.to_series().groupby(hb_df.dtypes).groups
-    correlation = hb_df.corr()
-    # Plot the correlation matrix heatmap
-    plt.figure(figsize=(12, 8))  
-    sb.heatmap(correlation, annot = True, cmap = 'coolwarm', fmt = ".2f", linewidths=0.5)
-    plt.title('Correlation Heatmap of Hotel Booking Dataset')
-    st.pyplot(plt.gcf())
 
-    st.write('The correlation coefficient indicates the strength and direction of the linear relationship between the variables, ranging from -1 to 1. A value close to 1 suggests a strong positive correlation, close to -1 indicates a strong negative correlation, and near 0 implies no correlation.')
-"""
 
 if st.sidebar.checkbox('MODELS'):
     st.title('MODELS')
@@ -383,7 +372,7 @@ if st.sidebar.checkbox('MODELS'):
     st.pyplot(plt.gcf()) 
     st.write('Removing the assigned_room_type column due to its high correlation with reserved_room_type helps mitigate multicollinearity in the regression model, ensuring more stable and interpretable coefficient estimates. Additionally, retaining reserved_room_type, which exhibits a stronger correlation with adr compared to assigned_room_type, enhances the models predictive capability, as it captures more relevant information for predicting the average daily rate.')
 
-    st.header('Random Forest Regression') 
+    # "Random Forest Regression" 
     # Train and evaluate Random Forest Regressor
     rf_model = RandomForestRegressor()
     rf_model.fit(X_train, y_train)
@@ -397,7 +386,7 @@ if st.sidebar.checkbox('MODELS'):
     print("Mean Absolute Error:", mae_rf)
     print("R^2 Score:", r2_rf)
 
-    st.header('Gradient Boosting Regression') 
+    # "Gradient Boosting Regression"
     # Train and evaluate gradient boosting regressor
     gb_model = GradientBoostingRegressor()
     gb_model.fit(X_train, y_train)
@@ -411,7 +400,7 @@ if st.sidebar.checkbox('MODELS'):
     print("Mean Absolute Error:", mae_gb)
     print("R^2 Score:", r2_gb)
     
-    st.header('Dummy Regression') 
+    # "Dummy Regression"
     # Define target variable and hb_df_adr
     adr = 'adr'
     hb_df_model = ['arrival_date_year', 'arrival_date_month', 'adults', 'children', 'babies',
@@ -432,7 +421,7 @@ if st.sidebar.checkbox('MODELS'):
     mae_dr = mean_absolute_error(y_test, y_pred_dr)
     r2_dr = r2_score(y_test, y_pred_dr)
 
-    print("Linear Regression Model Evaluation:")
+    print("Dummy Regression Model Evaluation:")
     print("Mean Squared Error:", mse_dr)
     print("Mean Absolute Error:", mae_dr)
     print("R^2 Score:", r2_dr)
