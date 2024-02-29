@@ -119,8 +119,8 @@ if st.sidebar.checkbox('PLOTS'):
     # Plotting the line graph
     plt.plot(hb_df['stays_in_weekend_nights'], color = 'purple')
     plt.title('Distribution of Stays in Weekend Nights')
-    plt.xlabel('Stays in Weekend Nights')
-    plt.ylabel('Frequency')
+    plt.xlabel('Frequency')
+    plt.ylabel('Stays in Weekend Nights')
     plt.grid(axis = 'y')         # show grid lines on y-axis
     st.pyplot(plt.gcf())
 
@@ -140,8 +140,8 @@ if st.sidebar.checkbox('PLOTS'):
     # Plotting the line graph
     plt.plot(hb_df['stays_in_week_nights'], color = 'Teal')
     plt.title('Distribution of Stays in Week Nights')
-    plt.xlabel('Stays in Week Nights')
-    plt.ylabel('Frequency')
+    plt.xlabel('Frequency')
+    plt.ylabel('Stays in Week Nights')
     plt.grid(axis = 'y')         # show grid lines on y-axis
     st.pyplot(plt.gcf()) 
 
@@ -203,6 +203,25 @@ if st.sidebar.checkbox('PLOTS'):
     ax.set_title('Average ADR per Weekend Nights')
     ax.set_xlabel('Stays in Weekend Nights')
     ax.set_ylabel('Average ADR per Weekend Nights')
+    st.pyplot(plt.gcf()) 
+
+    # Week Nights 
+    average_adr_per_week_mean = hb_df.groupby('stays_in_week_nights')['adr'].mean()  # Calculate average ADR for each Week Night
+    average_adr_per_week_std = hb_df.groupby('stays_in_week_nights')['adr'].std()  # Calculate deviation standard ADR for each Week Night
+    # Make data
+    x_wk = average_adr_per_week_mean.index.values                  # list of month
+    y1_wk = average_adr_per_week_mean - average_adr_per_week_std   # Add y1, lower range
+    y2_wk = average_adr_per_week_mean + average_adr_per_week_std   # Add y2, upper range
+    # Create a plot
+    fig = plt.figure(figsize = (20, 8))
+    ax = fig.gca()
+    ax.fill_between(x_wk, y1_wk, y2_wk, alpha = 0.8, linewidth = 0, color = 'lightblue')
+    ax.plot(x_wk, average_adr_per_week_mean, linewidth = 2, color = 'blue', marker = 'o')
+    ax.set_xticks(np.arange(1, 52))
+    ax.grid(True, linestyle = '--')
+    ax.set_title('Average ADR per Week Nights')
+    ax.set_xlabel('Stays in Week Nights')
+    ax.set_ylabel('Average ADR per Week Nights')
     st.pyplot(plt.gcf()) 
 
 
